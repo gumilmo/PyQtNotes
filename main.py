@@ -1,4 +1,6 @@
 import sys
+from random import randint
+
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QTextEdit, \
     QScrollArea, QPushButton, QDialog, QDialogButtonBox, QLabel, QMessageBox
 from PyQt6.QtGui import QPalette, QColor, QCursor, QMouseEvent
@@ -48,6 +50,14 @@ class CustomDialog(QDialog):
     def mousePressEvent(self, event) -> None:
         self.close()
 
+class AnotherWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        layout = QVBoxLayout()
+        self.lable = QLabel("Another window! %d" % randint(0, 100))
+        layout.addWidget(self.lable)
+        self.setLayout(layout)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -55,9 +65,9 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("My App")
 
-        button = QPushButton("Jopa!")
+        button = QPushButton("Show another window!")
+        self.another_window = AnotherWindow()
         button.clicked.connect(self.btn_clicked)
-        print(QCursor.pos().x())
         layout = QVBoxLayout()
         layout.addWidget(button)
         layout.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -65,16 +75,11 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
-    def btn_clicked(self, s):
-        dlg = QMessageBox.critical(self,
-                                   "What?",
-                                   "Are you mraz?a?a?a?a?A/A?a??a?A?A?A?A?A??A?A?A?AA?/a/a/a???",
-                                   buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.NoToAll | QMessageBox.StandardButton.Ignore,
-                                   defaultButton=QMessageBox.StandardButton.Yes
-                                   )
-
-        if dlg == QMessageBox.StandardButton.Yes:
-            print("OK!")
+    def btn_clicked(self, cheked):
+        if self.another_window.isVisible():
+            self.another_window.hide()
+        else:
+            self.another_window.show()
     #
     # def resizeEvent(self, event):
     #     print(self.width(), self.height())
