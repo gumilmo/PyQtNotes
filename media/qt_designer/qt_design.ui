@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NotesMainWindow</class>
+ <widget class="QMainWindow" name="NotesMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>401</width>
+    <height>644</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>1050</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>notes</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white;</string>
+  </property>
+  <widget class="QWidget" name="main_widget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="up_buttons_bar">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="up_btn4">
+        <property name="styleSheet">
+         <string notr="true"> background-color: red;
+ border-style: solid;
+ border-width:1px;
+ border-radius:10px;
+ border: none;
+ max-width:20px;
+ max-height:20px;
+ min-width:20px;
+ min-height:20px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="up_button_spacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="up_btn3">
+        <property name="styleSheet">
+         <string notr="true"> background-color: red;
+ border-style: solid;
+ border-width:1px;
+ border-radius:10px;
+ border: none;
+ max-width:20px;
+ max-height:20px;
+ min-width:20px;
+ min-height:20px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="up_btn2">
+        <property name="styleSheet">
+         <string notr="true"> background-color: red;
+ border-style: solid;
+ border-width:1px;
+ border-radius:10px;
+ border: none;
+ max-width:20px;
+ max-height:20px;
+ min-width:20px;
+ min-height:20px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="up_btn1">
+        <property name="styleSheet">
+         <string notr="true"> background-color: red;
+ border-style: solid;
+ border-width:1px;
+ border-radius:10px;
+ border: none;
+ max-width:20px;
+ max-height:20px;
+ min-width:20px;
+ min-height:20px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="central_space">
+      <item row="1" column="0">
+       <widget class="QTextEdit" name="frst_text">
+        <property name="styleSheet">
+         <string notr="true">QScrollBar:vertical {
+	display: none;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QWidget" name="widget" native="true"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="down_buttons_bar">
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="left_space"/>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="right_space"/>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="down_btn2">
+        <property name="styleSheet">
+         <string notr="true"> background-color: red;
+ border-style: solid;
+ border-width:1px;
+ border-radius:10px;
+ border: none;
+ max-width:20px;
+ max-height:20px;
+ min-width:20px;
+ min-height:20px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="down_btn_space">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="down_btn1">
+        <property name="styleSheet">
+         <string notr="true"> background-color: red;
+ border-style: solid;
+ border-width:1px;
+ border-radius:10px;
+ border: none;
+ max-width:20px;
+ max-height:20px;
+ min-width:20px;
+ min-height:20px;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
