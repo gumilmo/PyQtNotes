@@ -11,7 +11,7 @@ from services.interfaces.textedit_service_interface import TextEditServiceInterf
 class TextEditService(TextEditServiceInterface):
 
     @staticmethod
-    def resize(text_field: QTextEdit):
+    def resize_main(text_field: QTextEdit) -> None:
         print(text_field.toPlainText())
         pass
 
@@ -25,4 +25,24 @@ class TextEditService(TextEditServiceInterface):
 
     @staticmethod
     def resize_by_font_metrics(text_field: QTextEdit) -> None:
+        pass
+
+    @staticmethod
+    def call_text_edit_context_menu(self) -> None:
+        pass
+
+    @staticmethod
+    def change_text_font_size(self) -> None:
+        pass
+
+    @staticmethod
+    def change_text_font_color(self) -> None:
+        pass
+
+    @staticmethod
+    def change_text_font_weight(self) -> None:
+        pass
+
+    @staticmethod
+    def change_text_font_italic(self) -> None:
         pass

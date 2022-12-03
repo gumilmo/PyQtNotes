@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
 
         self.line = QTextEdit()
         self.line.setFixedHeight(30)
-        self.line.textChanged.connect(lambda : text_edit_serivce.resize(self.line))
+        self.line.textChanged.connect(lambda : text_edit_serivce.resize_main(self.line))
         layout.addWidget(self.line)
 
         widget = QWidget()
