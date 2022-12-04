@@ -2,9 +2,9 @@ import sys
 from random import randint
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QTextEdit, \
-    QScrollArea, QPushButton, QDialog, QDialogButtonBox, QLabel, QMessageBox
-from PyQt6.QtGui import QPalette, QColor, QCursor, QMouseEvent
-from PyQt6.QtCore import Qt
+    QScrollArea, QPushButton, QDialog, QDialogButtonBox, QLabel, QMessageBox, QMenu
+from PyQt6.QtGui import QPalette, QColor, QCursor, QMouseEvent, QContextMenuEvent, QAction
+from PyQt6.QtCore import Qt, QPoint
 from services.services.text_edit_service import TextEditService
 
 
@@ -92,24 +92,19 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
-        self.setMouseTracking(True)
-        button = QPushButton("Show another window!")
-        self.another_window = AnotherWindow()
-        self.text = QTextEdit()
-        button.clicked.connect(self.btn_clicked)
-        layout = QVBoxLayout()
-        layout.addWidget(button)
-        layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        widget = QWidget()
-        widget.setLayout(layout)
-        self.setCentralWidget(widget)
+        self.show()
 
-    def btn_clicked(self, cheked):
-        if self.another_window.isVisible():
-            self.another_window.hide()
-        else:
-            self.another_window.show()
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.on_context_menu)
+
+    def on_context_menu(self, pos) -> None:
+        print("Conetex menu was called")
+        context = QMenu(self)
+        context.addAction(QAction("test1", self))
+        context.addAction(QAction("test2", self))
+        context.addAction(QAction("test3", self))
+        context.exec(self.mapToGlobal(pos))
+        print(context.parent())
     #
     # def resizeEvent(self, event):
     #     print(self.width(), self.height())
