@@ -50,12 +50,41 @@ class CustomDialog(QDialog):
     def mousePressEvent(self, event) -> None:
         self.close()
 
+class Lable(QLabel):
+    def __init__(self):
+        super().__init__()
+
+        #self.enterEvent = self.enter
+        self.leaveEvent = self.leave
+
+    def mousePressEvent(self, event) -> None:
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.setText("Faaaaaart!")
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.setText("Jopk!")
+
+    def mouseDoubleClickEvent(self, event: QMouseEvent) -> None:
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.setText("GVNO")
+
+    def mouseMoveEvent(self, ev) -> None:
+        print("fart n sniff")
+
+
+    # def enter(self, event):
+    #     print(self)
+
+    @staticmethod
+    def leave(event):
+        print("gvno")
+
 class AnotherWindow(QWidget):
     def __init__(self):
         super().__init__()
 
         layout = QVBoxLayout()
-        self.lable = QLabel("Another window! %d" % randint(0, 100))
+        self.lable = Lable()
+        self.lable.setText("Another window! %d" % randint(0, 100))
         layout.addWidget(self.lable)
         self.setLayout(layout)
 
@@ -64,9 +93,10 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("My App")
-
+        self.setMouseTracking(True)
         button = QPushButton("Show another window!")
         self.another_window = AnotherWindow()
+        self.text = QTextEdit()
         button.clicked.connect(self.btn_clicked)
         layout = QVBoxLayout()
         layout.addWidget(button)
