@@ -11,17 +11,25 @@ from services.interfaces.textedit_service_interface import TextEditServiceInterf
 class TextEditService(TextEditServiceInterface):
 
     @staticmethod
-    def resize_main(text_field: QTextEdit) -> None:
+    def resize_main(text_field) -> None:
         print(text_field.toPlainText())
         pass
 
     @staticmethod
-    def resize_by_window(text_field: QTextEdit) -> None:
+    def resize_by_window(text_field) -> None:
         pass
 
     @staticmethod
-    def resize_by_space(text_field: QTextEdit) -> None:
+    def resize_by_space(text_field) -> None:
+        text_field.start_height += 15
+        text_field.setFixedHeight(text_field.start_height)
+
+    @staticmethod
+    def resize_by_backspace(text_field) -> None:
         pass
+        # if text_field.start_height > 40:
+        #     text_field.start_height -= 15
+        #     text_field.setFixedHeight(text_field.start_height)
 
     @staticmethod
     def resize_by_font_metrics(text_field: QTextEdit) -> None:

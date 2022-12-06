@@ -16,6 +16,10 @@ class TextEditServiceInterface(ABC):
         pass
 
     @abstractmethod
+    def resize_by_backspace(self: QTextEdit) -> None:
+        pass
+
+    @abstractmethod
     def resize_by_font_metrics(self: QTextEdit) -> None:
         pass
     
