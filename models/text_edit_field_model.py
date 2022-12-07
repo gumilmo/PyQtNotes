@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6.QtCore import Qt, QObject
-from PyQt6.QtGui import QKeyEvent, QWheelEvent, QTextCursor
+from PyQt6.QtGui import QKeyEvent, QWheelEvent, QTextCursor, QResizeEvent
 from PyQt6.QtWidgets import QTextEdit, QWidget, QScrollArea, QPlainTextEdit
 from services.services.text_edit_service import TextEditService
 from PyQt6.QtCore import QEvent
@@ -11,6 +11,7 @@ class TextEditField(QPlainTextEdit):
         super().__init__()
 
         self.start_height = 40
+        self.h = 0
 
         self.installEventFilter(self)
         self.text_edit_service = TextEditService()
@@ -18,7 +19,7 @@ class TextEditField(QPlainTextEdit):
         self.setMaximumHeight(420)
         self.ensureCursorVisible()
         self.moveCursor(QTextCursor.MoveOperation.End)
-        self.setFixedHeight(40)
+        self.setMinimumHeight(40)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.verticalScrollBar().setValue(self.verticalScrollBar().minimum())
 
@@ -39,14 +40,14 @@ class TextEditField(QPlainTextEdit):
         val -= int(e.angleDelta().y() / 5)
         scroll_area.verticalScrollBar().setValue(val)
 
+    def resizeEvent(self, e: QResizeEvent) -> None:
+        scroll_area = self.parent().parent().parent()
+        scroll_area.verticalScrollBar().setValue(int(self.h))
+
     def eventFilter(self, obj, event):
         if event.type() == QEvent.Type.KeyPress and obj is self:
-            if event.key() == Qt.Key.Key_Return and self.hasFocus():
-                self.text_edit_service.resize_by_space(self)
-                scroll_area = self.parent().parent().parent()
-                scroll_area = self.parent().parent().parent()
-                scroll_area.verticalScrollBar().setValue(
-                    int(self.blockBoundingGeometry(self.textCursor().block()).bottom()) - 40)
+            if event.key() == Qt.Key.Key_Shift:
+                self.inset_image()
             if event.key() == Qt.Key.Key_Backspace and obj is self:
                 self.text_edit_service.resize_by_backspace(self)
             elif event.key() == Qt.Key.Key_Up:
@@ -62,16 +63,16 @@ class TextEditField(QPlainTextEdit):
     def resize_test(self):
         doc = self.document()
         tb = doc.findBlockByNumber(doc.blockCount() - 1)
-        h = self.blockBoundingGeometry(tb).bottom() + 2 * doc.documentMargin()
-        self.setFixedHeight(int(h))
+        self.h = self.blockBoundingGeometry(tb).bottom() + 2 * doc.documentMargin()
+        self.setFixedHeight(int(self.h))
         #print(self.blockBoundingGeometry(self.textCursor().block()).bottom())
 
 
     def move_main_scrollbar_to_cursor(self):
         #self.ensureCursorVisible()
         scroll_area = self.parent().parent().parent()
-        scroll_area.verticalScrollBar().setValue(int(self.pos().y() / 10))
-        scroll_area.verticalScrollBar().setValue(int(self.blockBoundingGeometry(self.textCursor().block()).bottom()))
+        scroll_area.verticalScrollBar().setValue(
+            int(self.blockBoundingGeometry(self.textCursor().block()).bottom() - 10))
         # print(self.textCursor().position(), "pos")
         # print(self.height(),"hhhhh")
         # print("Scroll area var: ", scroll_area.verticalScrollBar().value())
@@ -81,5 +82,12 @@ class TextEditField(QPlainTextEdit):
         #self.ensureCursorVisible()
         #scroll_area.verticalScrollBar().setValue(self.height() + 40)
         #scroll_area.verticalScrollBar().setValue(self.verticalScrollBar().value())
+
+    def inset_image(self):
+        doc = self.document()
+        cursor = QTextCursor(doc)
+        p1 = cursor.position()
+        cursor.insertImage('cat.png')
+
 
 
