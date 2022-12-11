@@ -1,6 +1,7 @@
 import sys
+from PIL import Image
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap, QFontMetrics, QFont
+from PyQt6.QtGui import QPixmap, QFontMetrics, QFont, QTextCursor
 from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QCheckBox, QComboBox, QListWidget, QLineEdit, QSpinBox, \
     QSlider, QDial, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QStackedLayout, QPushButton, QTabWidget, QTextEdit, \
     QScrollArea
@@ -54,3 +55,25 @@ class TextEditService(TextEditServiceInterface):
     @staticmethod
     def change_text_font_italic(self) -> None:
         pass
+
+    @staticmethod
+    def image_resize(text_field: QTextEdit, main_window: QMainWindow) -> None:
+        it = text_field.document().firstBlock().begin()
+        while not it.atEnd():
+            fragment = it.fragment()
+            if fragment.isValid():
+                if fragment.charFormat().isImageFormat():
+                    new_image_format = fragment.charFormat().toImageFormat()
+                    print(new_image_format)
+                    # img = Image.open(new_image_format.name())
+                    # width, height = img.size
+                    # new_h = height * main_window.width() / width
+                    # print('fffff')
+                    # new_image_format.setWidth(main_window.width())
+                    # new_image_format.setHeight(new_h)
+                    # if new_image_format.isValid():
+                    #     txt_cur = text_field.textCursor()
+                    #     txt_cur.setPosition(fragment.position())
+                    #     txt_cur.setPosition(fragment.position() + fragment.length(), QTextCursor.MoveMode.KeepAnchor)
+                    #     txt_cur.setCharFormat(new_image_format)
+            it += 1

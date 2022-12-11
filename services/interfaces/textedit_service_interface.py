@@ -42,3 +42,7 @@ class TextEditServiceInterface(ABC):
     @abstractmethod
     def change_text_font_italic(self) -> None:
         pass
+
+    @abstractmethod
+    def image_resize(self) -> None:
+        pass
