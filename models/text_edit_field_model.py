@@ -41,8 +41,7 @@ class TextEditField(QTextEdit):
         if source.hasImage():
             return True
         else:
-            pass
-            #return super(TextEditField, self).canInsertFromMimeData(source)
+            return super(TextEditField, self).canInsertFromMimeData(source)
 
     def insertFromMimeData(self, source):
 
@@ -55,7 +54,7 @@ class TextEditField(QTextEdit):
                 file_ext = splitext(str(u.toLocalFile()))
                 if u.isLocalFile() and file_ext in IMAGE_EXTENSIONS:
                     image = QImage(u.toLocalFile())
-                    document.addResource(QTextDocument.ImageResource, u, image)
+                    document.addResource(QTextDocument.ResourceType.ImageResource, u, image)
                     cursor.insertImage(u.toLocalFile())
 
                 else:
@@ -75,5 +74,5 @@ class TextEditField(QTextEdit):
             cursor.insertImage(uuid)
             return
 
-        #super(TextEditField, self).insertFromMimeData(source)
+        super(TextEditField, self).insertFromMimeData(source)
 

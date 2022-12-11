@@ -47,10 +47,10 @@ class MainWindow(QMainWindow):
         widget = QWidget()
 
 
-        doc = txt.document()
-        cur = QTextCursor(doc)
-        p1 = cur.position()
-        cur.insertImage('cat2.png')
+        #doc = txt.document()
+        #cur = QTextCursor(doc)
+        #p1 = cur.position()
+        #cur.insertImage('cat2.png')
 
         print("doc", layout.sizeHint().width())
 
