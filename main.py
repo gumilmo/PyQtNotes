@@ -10,6 +10,7 @@ from PyQt6.QtCore import Qt, QPoint, QEvent
 
 from services.services.text_edit_service import TextEditService
 from models.text_edit_field_model import TextEditField
+from models.textedit_layout import TextEditLayout
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -41,16 +42,15 @@ class MainWindow(QMainWindow):
         #
         # self.setCentralWidget(self.scroll_area)
 
-        layout = QVBoxLayout()
-        txt = QTextEdit()
-        txt.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        layout = TextEditLayout()
+        txt = TextEditField()
         widget = QWidget()
-        txt.setText("dfdsfdsfdsfdsfds")
+
 
         doc = txt.document()
         cur = QTextCursor(doc)
         p1 = cur.position()
-        cur.insertImage('cat.png')
+        cur.insertImage('cat2.png')
 
         print("doc", layout.sizeHint().width())
 
@@ -62,19 +62,15 @@ class MainWindow(QMainWindow):
                     new_image_format = fragment.charFormat().toImageFormat()
                     img = Image.open(new_image_format.name())
                     width, height = img.size
-                    print("Img: " , "w: ", width, "\th: ", height)
-                    print("Window: ", "w: ", self.width(), "\th: ", self.height())
-                    print("Text field: ", "w: ", txt.width() ,"h: ", txt.height())
                     new_h = height * self.width() / width
-                    print(new_h, 'jooooooopa')
-                    new_image_format.setWidth(self.width() -40)
-                    new_image_format.setHeight(int(new_h))
+                    print('fffff')
+                    new_image_format.setWidth(self.width())
+                    new_image_format.setHeight(new_h)
                     if new_image_format.isValid():
                         txt_cur = txt.textCursor()
                         txt_cur.setPosition(fragment.position())
                         txt_cur.setPosition(fragment.position() + fragment.length(), QTextCursor.MoveMode.KeepAnchor)
                         txt_cur.setCharFormat(new_image_format)
-                        print(txt_cur.charFormat().toImageFormat().height())
             it += 1
 
         #fragment = it.fragment()
@@ -89,10 +85,11 @@ class MainWindow(QMainWindow):
     #     self.text_edit_field.textCursor()
     #     self.scroll_area.verticalScrollBar().setValue(400)
 
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
 
-app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
 
-window = MainWindow()
-window.show()
+    app.exec()
 
-app.exec()
