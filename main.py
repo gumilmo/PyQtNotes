@@ -23,18 +23,22 @@ class MainWindow(QMainWindow):
         self.setMaximumHeight(620)
         self.setMaximumWidth(900)
 
-        self.txt_edit_ser = TextEditService()
-
         layout = TextEditLayout()
         self.txt = TextEditField()
         widget = QWidget()
+
+        self.text_edit_service = TextEditService()
+
+        #fragment = it.fragment()
+        #print(fragment)
+        #print(it.fragment().length())
 
         layout.addWidget(self.txt)
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
     def resizeEvent(self, event: QResizeEvent) -> None:
-        self.txt_edit_ser.image_resize(self.txt, self)
+        self.text_edit_service.resize_main(self.txt, self)
 
     # def mousePressEvent(self, a0) -> None:
     #     self.text_edit_field.textCursor()
