@@ -23,13 +23,15 @@ class TextEditField(QTextEdit):
     def __init__(self):
         super().__init__()
 
+        self.text_edit_service = TextEditService()
+
+        self.image_QUrls = []
+
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setWordWrapMode(QTextOption.WrapMode.WrapAnywhere)
         self.ensureCursorVisible()
 
         self.cursorPositionChanged.connect(self.pos_chng)
-
-        self.image_QUrls = []
 
     def pos_chng(self) -> None:
         if self.textCursor().charFormat().isImageFormat():
@@ -64,13 +66,15 @@ class TextEditField(QTextEdit):
 
 
         elif source.hasImage():
-            image = source.imageData()
+            image: QImage = source.imageData()
             uuid = hexuuid()
-            print(uuid)
             image_qurl = QUrl(uuid)
+            new_size = self.text_edit_service.image_resize(image, self.parent().parent())
             self.image_QUrls.append(image_qurl)
             document.addResource(QTextDocument.ResourceType.ImageResource, image_qurl, image)
+            self.text_edit_service.resize_main(self, self.parent().parent())
             cursor.insertImage(uuid)
+            print(cursor.block().blockNumber())
             return
 
         super(TextEditField, self).insertFromMimeData(source)

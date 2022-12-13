@@ -1,3 +1,4 @@
+from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QTextEdit
 from abc import ABC, abstractmethod
 
@@ -44,5 +45,5 @@ class TextEditServiceInterface(ABC):
         pass
 
     @abstractmethod
-    def image_resize(self) -> None:
+    def image_resize(self) -> QSize:
         pass
