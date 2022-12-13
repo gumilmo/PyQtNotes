@@ -25,7 +25,7 @@ class TextEditField(QTextEdit):
 
         self.text_edit_service = TextEditService()
 
-        self.image_QUrls = []
+        self.image_QUrls = {}
 
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setWordWrapMode(QTextOption.WrapMode.WrapAnywhere)
@@ -49,33 +49,9 @@ class TextEditField(QTextEdit):
         document = self.document()
 
         if source.hasUrls():
-            for u in source.urls():
-                file_ext = splitext(str(u.toLocalFile()))
-                if u.isLocalFile() and file_ext in IMAGE_EXTENSIONS:
-                    self.image_QUrls.append(u)
-                    image = QImage(u.toLocalFile())
-                    document.addResource(QTextDocument.ResourceType.ImageResource, u, image)
-                    cursor.insertImage(u.toLocalFile())
-                else:
-                    # If we hit a non-image or non-local URL break the loop and fall out
-                    # to the super call & let Qt handle it
-                    break
-            else:
-                # If all were valid images, finish here.
-                return
-
-
+            self.text_edit_service.paste_image_from_local_file(source, self, document, cursor)
         elif source.hasImage():
-            image: QImage = source.imageData()
-            uuid = hexuuid()
-            image_qurl = QUrl(uuid)
-            new_size = self.text_edit_service.image_resize(image, self.parent().parent())
-            self.image_QUrls.append(image_qurl)
-            document.addResource(QTextDocument.ResourceType.ImageResource, image_qurl, image)
-            self.text_edit_service.resize_main(self, self.parent().parent())
-            cursor.insertImage(uuid)
-            print(cursor.block().blockNumber())
-            return
+            self.text_edit_service.paste_image_from_clipboard(source, self, document, cursor)
 
         super(TextEditField, self).insertFromMimeData(source)
 
