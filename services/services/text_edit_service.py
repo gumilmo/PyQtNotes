@@ -31,9 +31,13 @@ class TextEditService(TextEditServiceInterface):
                     image_resource: QImage = text_field_model.document().resource(
                         QTextDocument.ResourceType.ImageResource,
                         QUrl(fragment.charFormat().toImageFormat().name())
-                    )
+                        )
                     if fragment.charFormat().isImageFormat():
-                        TextEditService.new_image_size(fragment,text_field_model, main_window, image_resource)
+                        TextEditService.new_image_size(
+                            fragment,text_field_model,
+                            main_window,
+                            image_resource
+                            )
                 block_iterator += 1
 
     @staticmethod
@@ -108,7 +112,8 @@ class TextEditService(TextEditServiceInterface):
                                 ) -> None:
         txt_cur = text_field_model.textCursor()
         txt_cur.setPosition(fragment.position())
-        txt_cur.setPosition(fragment.position() + fragment.length(), QTextCursor.MoveMode.KeepAnchor)
+        txt_cur.setPosition(fragment.position() + fragment.length(), 
+                            QTextCursor.MoveMode.KeepAnchor)
         txt_cur.setCharFormat(format)
 
     @staticmethod
@@ -123,6 +128,7 @@ class TextEditService(TextEditServiceInterface):
                 text_field_model.image_QUrls.append(url)
                 image = QImage(url.toLocalFile())
                 document.addResource(QTextDocument.ResourceType.ImageResource, url, image)
+                cursor.insertText('\n')
                 cursor.insertImage(url.toLocalFile())
             else:
                 break

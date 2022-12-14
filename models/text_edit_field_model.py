@@ -26,17 +26,25 @@ class TextEditField(QTextEdit):
         self.text_edit_service = TextEditService()
 
         self.image_QUrls = {}
+        self.near_to_image = False
 
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.setWordWrapMode(QTextOption.WrapMode.WrapAnywhere)
         self.ensureCursorVisible()
+        self.setWordWrapMode(QTextOption.WrapMode.WrapAnywhere)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
-        self.cursorPositionChanged.connect(self.pos_chng)
+        self.textChanged.connect(self.move_cursor_if_image)
+        self.cursorPositionChanged.connect(self.text_cursor_position_changed)
 
-    def pos_chng(self) -> None:
-        if self.textCursor().charFormat().isImageFormat():
-            print("Image!")
+    def text_cursor_position_changed(self) -> None:
+        is_image_format = self.textCursor().charFormat().isImageFormat()
+        self.near_to_image = True if is_image_format else False
+        print(self.textCursor().blockFormat().lineHeightType())
 
+    def move_cursor_if_image(self) -> None:
+        if self.near_to_image: #TODO and char not backspace
+            print("Image!1234")
+            self.textCursor().insertText('\n')
+            #TODO change text format
 
     def canInsertFromMimeData(self, source):
         if source.hasImage():
